@@ -12,7 +12,7 @@ class Deleter:
 
         v.parent = u.parent
 
-    def mininum(self, x):
+    def find_minimum(self, x):
         while x.left is not self.NIL:
             x = x.left
 
@@ -30,7 +30,7 @@ class Deleter:
             x = z.left
             self.transplant(z, z.left)
         else:
-            y = self.minimum(z.right)
+            y = self.find_minimum(z.right)
             y_color = y.color
             x = y.right
             if y.parent is z:

@@ -23,5 +23,14 @@ for key in [10, 20, 30, 15, 12]:
     success = tree.insert(key, data=f"Data_for_{key}")
     if success:
         print(f"Đã insert thành công key: {key}")
+        print()
     else:
         print(f"Key {key} đã tồn tại trong cây!")
+        print()
+
+success = tree.delete(20)
+if success:
+    print(f"Đã xóa thành công key {20}")
+    print()
+else:
+    print("Thất bại")
