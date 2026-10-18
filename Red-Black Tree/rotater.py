@@ -1,5 +1,13 @@
-class RotaterMixin:
+from node import Node
+
+
+class Rotater:
     def left_rotate(self, x):
+        if not isinstance(x, Node):
+            x = self.search(x)
+            if x is self.NIL:
+                return
+
         y = x.right
         x.right = y.left
         if y.left is not self.NIL:
@@ -15,6 +23,10 @@ class RotaterMixin:
         x.parent = y
 
     def right_rotate(self, y):
+        if not isinstance(y, Node):
+            y = self.search(y)
+            if y is self.NIL:
+                return
         x = y.left
         y.left = x.right
         if x.right is not self.NIL:

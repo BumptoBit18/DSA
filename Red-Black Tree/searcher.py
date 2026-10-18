@@ -4,7 +4,7 @@ class Searcher:
         while x is not self.NIL and key != x.key:
             x = x.left if key < x.key else x.right
 
-        return None if x is self.NIL else x
+        return x
 
     def ceiling(self, key):
         """Find the mininum >= key (or None)"""

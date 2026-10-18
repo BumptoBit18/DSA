@@ -4,7 +4,7 @@ from node import BLACK, RED
 class Deleter:
     def transplant(self, u, v):
         if u.parent is self.NIL:
-            self.root = u
+            self.root = v
         elif u is u.parent.left:
             u.parent.left = v
         else:

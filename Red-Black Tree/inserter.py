@@ -1,14 +1,14 @@
 from node import Node, RED, BLACK
 
 
-class InserterMixin:
+class Inserter:
     def insert(self, key, data=None):
         # y, following x, is parent of x --> When x is NIL, y will be parent of the new node
         y, x = self.NIL, self.root
         while x is not self.NIL:
             y = x
             if key == x.key:
-                x.data = key
+                x.data = data
                 return False
             x = x.left if key < x.key else x.right
         z = Node(key, data, RED)
@@ -44,7 +44,7 @@ class InserterMixin:
                         self.log(
                             f"TH2 (triangle): Xoay trái tại {z.parent.key}")
                         z = z.parent
-                        self.rotate_left(z)
+                        self.left_rotate(z)
                     self.log(
                         f"TH3 (line): đổi màu cha {z.parent.key} --> BLACK, ông {z.parent.parent.key} --> RED, rotate right tại {z.parent.parent.key}")
                     z.parent.color = BLACK
