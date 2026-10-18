@@ -2,7 +2,7 @@ class Searcher:
     def search(self, key):
         x = self.root
         while x is not self.NIL and key != x.key:
-            x = x.key if key < x.key else x.right
+            x = x.left if key < x.key else x.right
 
         return None if x is self.NIL else x
 

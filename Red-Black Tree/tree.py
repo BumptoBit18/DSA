@@ -30,7 +30,10 @@ for key in [10, 20, 30, 15, 12]:
 
 success = tree.delete(20)
 if success:
-    print(f"Đã xóa thành công key {20}")
+    print(f"Đã xóa thành công node {20}")
     print()
 else:
     print("Thất bại")
+    print()
+
+print("Found" if tree.search(15) else "Not found")
