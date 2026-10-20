@@ -1,0 +1,62 @@
+RED, BLACK = True, False
+
+class Node:
+    __slots__ = ("key", "cnt", "size", "left", "right", "color")
+    def __init__(self, key, color):
+        self.key, self.cnt, self.size, self.color = key, 1, 1, color
+        self.left = self.right = None
+
+def size(h):   return h.size if h else 0
+def is_red(h): return h is not None and h.color == RED
+def update(h): h.size = size(h.left) + size(h.right) + h.cnt
+
+def rotate_left(h):             # nút 3 nghiêng phải thành nghiêng trái
+    x = h.right
+    h.right, x.left = x.left, h
+    x.color, h.color = h.color, RED
+    x.size = h.size             # x chứa đúng tập khóa cũ của h
+    update(h)
+    return x
+
+def rotate_right(h):
+    x = h.left
+    h.left, x.right = x.right, h
+    x.color, h.color = h.color, RED
+    x.size = h.size
+    update(h)
+    return x
+
+def flip_colors(h):             # TÁCH nút 4: trung vị đi lên cha
+    h.color = RED
+    h.left.color = h.right.color = BLACK
+
+def insert(h, key):
+    if h is None:
+        return Node(key, RED)
+    if   key < h.key: h.left  = insert(h.left,  key)
+    elif key > h.key: h.right = insert(h.right, key)
+    else:             h.cnt += 1          # trùng khóa: tăng đếm
+    update(h)                              # cập nhật size TRƯỚC khi xoay
+    if is_red(h.right) and not is_red(h.left):  h = rotate_left(h)
+    if is_red(h.left) and is_red(h.left.left):  h = rotate_right(h)
+    if is_red(h.left) and is_red(h.right):      flip_colors(h)
+    return h
+
+def rank(h, key):               # số khóa NHỎ HƠN key
+    r = 0
+    while h:
+        if   key < h.key: h = h.left
+        elif key > h.key: r += size(h.left) + h.cnt; h = h.right
+        else:             return r + size(h.left)
+    return r
+
+def countSmaller(nums):
+    root, res = None, [0] * len(nums)
+    for i in range(len(nums) - 1, -1, -1):
+        res[i] = rank(root, nums[i])
+        root = insert(root, nums[i])
+        root.color = BLACK
+    return res
+
+
+
